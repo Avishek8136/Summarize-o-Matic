@@ -1,0 +1,4 @@
+tkinter
+nltk
+heapq
+pyttsx3
