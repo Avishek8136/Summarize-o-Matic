@@ -4,18 +4,10 @@ import re
 import heapq
 import os
 from nltk.corpus import stopwords
-from nltk import data
 
-# Custom NLTK data directory (useful for cloud deployments)
+# Download stopwords if not present
 nltk_data_dir = './nltk_data'
 os.makedirs(nltk_data_dir, exist_ok=True)
-data.path.append(nltk_data_dir)
-
-# # Download NLTK data files if they aren't already present
-# try:
-#     nltk.data.find('tokenizers/punkt')
-# except LookupError:
-#     nltk.download('punkt', download_dir=nltk_data_dir)
 
 try:
     nltk.data.find('corpora/stopwords')
@@ -29,8 +21,8 @@ def summarize_text(article_text, num_sentences):
     formatted_article_text = re.sub('[^a-zA-Z]', ' ', article_text)
     formatted_article_text = re.sub(r'\s+', ' ', formatted_article_text)
 
-    # Tokenize the article into sentences
-    sentence_list = nltk.sent_tokenize(article_text)
+    # Use regex to split text into sentences instead of nltk.sent_tokenize
+    sentence_list = re.split(r'(?<=[.!?]) +', article_text)
 
     # Get stopwords
     stop_words = set(stopwords.words('english'))
