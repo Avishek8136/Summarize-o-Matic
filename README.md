@@ -1,83 +1,151 @@
-# Summarize-o-Matic: Text Summarizer
+# Summarize-o-Matic: Text Summarizer 📄🤖
 
-📌Introduction
+📌 **Introduction**
 ------------------
-Text summarizers are essential tools in today's information-rich society, where massive volumes of data are generated every minute. They aid in rapidly extracting vital information from long texts, allowing users to absorb the main ideas without having to read the entire text. This is especially valuable for professionals, researchers, and students who need to review big amounts of information fast. Text summarizers also help in decision-making by providing brief insights, increasing productivity, and saving time. In the business world, they provide quick comprehension of reports, emails, and publications, hence increasing workflow efficiency. Finally, text summarizers address the issue of information overload by making relevant information accessible and manageable.📚💼🔍
+Text summarizers have become essential tools in today’s data-heavy world. They help users quickly extract main ideas from lengthy texts, making it easier to grasp crucial information without reading through the entire content. This capability is invaluable for professionals, researchers, and students who often need to process large volumes of data rapidly. Text summarizers also streamline decision-making, boost productivity, and save time by offering quick insights. In business, they enhance workflow by summarizing reports, emails, and documents, helping reduce information overload and making relevant information more accessible. 📚💼🔍
 
-## Libraries Required
-------------------
-
-NLTK:-The NLTK library is a general Python toolkit for natural language processing (NLP) activities that includes easy-to-use interfaces to over 50 corpus and lexical resources, as well as a suite of text processing tools for classification, tokenization, stemming, tagging, parsing, and more.📚
-
-RE:- Regular expressions (RE) are character sequences that generate search patterns. They are generally used for string matching and manipulation. They are strong text processing tools that let users to do complex search and replace operations, extract specific data from huge volumes of text, and validate input formats. 🔍
-
-Tkinter:- Tkinter is a typical Python package for developing graphical user interfaces (GUIs). It allows you to quickly and easily create desktop programs by providing a number of widgets such as buttons, labels, text fields, and menus. 🖥️
-
-Heapq:- Implementations of the heap queue algorithm are available via the Python package heapq. It makes it possible to insert and remove items from heap data structures—a type of customized tree-based data structure that complies with the heap property—efficiently. According to the heap property, a binary heap can only have a parent node that is either larger (max heap) or smaller (min heap) than its offspring. ⏳
-
-Pyttsx3:- The 'pyttsx3' Python module is a text-to-speech conversion library that works offline and supports a variety of TTS engines. It allows you to convert text to spoken words and adjust speech parameters such as rate, volume, and voice.
-
-## Installating the required libraries
+## 🔧 **Libraries Required**
 ------------------
 
-To install the required libraries, run the following command:
+- **NLTK** 📚: A comprehensive toolkit for natural language processing in Python, providing interfaces for over 50 corpus and lexical resources, plus tools for text processing like classification, tokenization, and stemming.
+- **RE** 🔍: Regular expressions used for pattern matching and string manipulation, enabling complex search, replace, and text extraction tasks.
+- **Tkinter** 🖥️: A standard Python package for building graphical user interfaces, featuring a variety of widgets like buttons, labels, and text fields.
+- **Heapq** ⏳: A library for efficient heap queue (priority queue) operations, often used for handling tree-based data structures.
+- **Pyttsx3** 🗣️: An offline text-to-speech conversion library that enables text-to-speech functionalities with adjustable parameters like rate, volume, and voice.
+
+## 🛠️ **Installing the Required Libraries**
+------------------
+
+Run the following command to install the required libraries:
 
 ```bash
 pip install -r requirements.txt
 ```
 
-## Text Summarization Steps
+## 🚀 **Text Summarization Steps**
 ------------------
 
-#### Preprocessing
+#### **1. Preprocessing** ✂️
 ------------------
+The preprocessing stage involves cleaning the text by removing references and replacing multiple spaces with a single space. The text remains otherwise unchanged to retain its weighted word frequencies for summarization.
 
-The initial preprocessing step is to remove all references from the article. The square brackets are eliminated, the ensuing many spaces are replaced with a single space, and the input is further cleaned. 
-
-We will not remove any other numbers, punctuation marks, or special characters from this text because we will utilize it to generate summaries, and weighted word frequencies will be replaced in this article.✂️
-
-We now have two objects: article_text (original article) and formatted_article_text (formatted article). 📝
-
-#### Converting Text into Sentences
+#### **2. Converting Text into Sentences** 📝
 ------------------
+Tokenize the `article_text` into sentences, utilizing punctuation to identify sentence boundaries. The `formatted_article_text` does not contain punctuation, so tokenizing is only possible using `article_text`.
 
-We will now utilize the article_text object to tokenize the article into a sentence because it contains full stops. The formatted_article_text lacks punctuation and so cannot be translated into sentences with the full stop as a parameter.📝
-
-#### Find the Weighted Frequency of Occurrence.
+#### **3. Finding the Weighted Frequency of Words** 📊
 ------------------
+Use the `formatted_article_text` to calculate the frequency of each word, excluding stop words. Then calculate the weighted frequency by dividing each word’s count by the highest frequency in the text.
 
-We utilize the formatted_article_text variable to determine the frequency with which each word appears. We utilized this variable to calculate frequency of occurrence because it lacks punctuation, numerals, and other special characters. Now we loop through all of the phrases and their matching words to see if they are stop words. If not, we check to see if the terms exist in the word_frequency dictionary (also known as word_frequencies).
+##### **Example: Weighted Frequency of Occurrence**
 
-To calculate the weighted frequency, we divided the number of occurrences of each word by the frequency of the most frequent word.📊
-
-#### Example:- Weight Frequency of Occurence
-
-| Word     | Frequency | Weighed Frequency |
+| Word     | Frequency | Weighted Frequency |
 |----------|-----------|-------------------|
 | keep     | 5         | 1.00              |
 | striving | 1         | 0.20              |
 
-#### Calculating Sentence Scores
+#### **4. Calculating Sentence Scores** 📝
 ------------------
+Score each sentence by summing the weighted frequencies of its words. Only sentences with fewer than 35 words are considered to improve summary clarity.
 
-Calculate the scores for each sentence by adding the weighted frequencies of the words in that sentence. We calculated the score solely for statements containing fewer than 35 words.
-
-#### Example:-Sum of Weighted frequencies
+##### **Example: Sum of Weighted Frequencies**
 
 | Sentence     | Sum of Weighted Frequencies | 
-|----------|-----------|
-| Keep striving     | 1 + 0.20 = 1.20       | 
+|--------------|-----------------------------|
+| Keep striving| 1 + 0.20 = 1.20             | 
 
-#### Genearating the summary
+#### **5. Generating the Summary** 📝
+------------------
+Using the `sentence_scores` dictionary, retrieve the top N sentences with the highest scores to create the summary. The script typically selects the top seven sentences.
+
+## 🛑 **Problem Statement**
+------------------
+Design a summarization tool that provides users with condensed insights from lengthy text documents while maintaining the context and key information, helping users quickly understand large amounts of data in limited time.
+
+## 🌐 **Deployment Link**
+------------------
+Explore the application live here: [Summarize-o-Matic](https://summarize-o-matic.streamlit.app/)
+
+## 🔗 **Important Links**
+------------------
+- [NLTK Documentation](https://www.nltk.org/)
+- [NLTK on PyPI](https://pypi.org/project/nltk/)
+- [Tkinter GUI Docs](https://docs.python.org/3/library/tkinter.html)
+- [Pyttsx3 on PyPI](https://pypi.org/project/pyttsx3/)
+
+<p align="center">© [2024 Data Hack Fest](https://events.mlh.io/events/11279) | [Avishek Rauniyar](https://www.github.com/Avishek8136) | All rights reserved. 📅</p># Summarize-o-Matic: Text Summarizer 📄🤖
+
+📌 **Introduction**
+------------------
+Text summarizers have become essential tools in today’s data-heavy world. They help users quickly extract main ideas from lengthy texts, making it easier to grasp crucial information without reading through the entire content. This capability is invaluable for professionals, researchers, and students who often need to process large volumes of data rapidly. Text summarizers also streamline decision-making, boost productivity, and save time by offering quick insights. In business, they enhance workflow by summarizing reports, emails, and documents, helping reduce information overload and making relevant information more accessible. 📚💼🔍
+
+## 🔧 **Libraries Required**
 ------------------
 
-Now we have the sentence_scores dictionary, which contains sentences and their related scores. To summarize the article, we can select the top N sentences with the highest score. The following script retrieves the top seven sentences and prints them to the screen.📝
+- **NLTK** 📚: A comprehensive toolkit for natural language processing in Python, providing interfaces for over 50 corpus and lexical resources, plus tools for text processing like classification, tokenization, and stemming.
+- **RE** 🔍: Regular expressions used for pattern matching and string manipulation, enabling complex search, replace, and text extraction tasks.
+- **Tkinter** 🖥️: A standard Python package for building graphical user interfaces, featuring a variety of widgets like buttons, labels, and text fields.
+- **Heapq** ⏳: A library for efficient heap queue (priority queue) operations, often used for handling tree-based data structures.
+- **Pyttsx3** 🗣️: An offline text-to-speech conversion library that enables text-to-speech functionalities with adjustable parameters like rate, volume, and voice.
 
-## Important Links:- 
+## 🛠️ **Installing the Required Libraries**
+------------------
 
-[NLTK](https://www.nltk.org/)
-[NLTK in python](https://pypi.org/project/nltk/)
-[Tkinter GUI](https://docs.python.org/3/library/tkinter.html)
-[Pyttsx3](https://pypi.org/project/pyttsx3/)
+Run the following command to install the required libraries:
 
-<p align="center">© <a href="https://events.mlh.io/events/11279">2024 Data Hack Fest</a> | <a href="https://www.github.com/Avishek8136"> Avishek Rauniyar </a> | All rights reserved. </p>
+```bash
+pip install -r requirements.txt
+```
+
+## 🚀 **Text Summarization Steps**
+------------------
+
+#### **1. Preprocessing** ✂️
+------------------
+The preprocessing stage involves cleaning the text by removing references and replacing multiple spaces with a single space. The text remains otherwise unchanged to retain its weighted word frequencies for summarization.
+
+#### **2. Converting Text into Sentences** 📝
+------------------
+Tokenize the `article_text` into sentences, utilizing punctuation to identify sentence boundaries. The `formatted_article_text` does not contain punctuation, so tokenizing is only possible using `article_text`.
+
+#### **3. Finding the Weighted Frequency of Words** 📊
+------------------
+Use the `formatted_article_text` to calculate the frequency of each word, excluding stop words. Then calculate the weighted frequency by dividing each word’s count by the highest frequency in the text.
+
+##### **Example: Weighted Frequency of Occurrence**
+
+| Word     | Frequency | Weighted Frequency |
+|----------|-----------|-------------------|
+| keep     | 5         | 1.00              |
+| striving | 1         | 0.20              |
+
+#### **4. Calculating Sentence Scores** 📝
+------------------
+Score each sentence by summing the weighted frequencies of its words. Only sentences with fewer than 35 words are considered to improve summary clarity.
+
+##### **Example: Sum of Weighted Frequencies**
+
+| Sentence     | Sum of Weighted Frequencies | 
+|--------------|-----------------------------|
+| Keep striving| 1 + 0.20 = 1.20             | 
+
+#### **5. Generating the Summary** 📝
+------------------
+Using the `sentence_scores` dictionary, retrieve the top N sentences with the highest scores to create the summary. The script typically selects the top seven sentences.
+
+## 🛑 **Problem Statement**
+------------------
+Design a summarization tool that provides users with condensed insights from lengthy text documents while maintaining the context and key information, helping users quickly understand large amounts of data in limited time.
+
+## 🌐 **Deployment Link**
+------------------
+Explore the application live here: [Summarize-o-Matic](https://summarize-o-matic.streamlit.app/)
+
+## 🔗 **Important Links**
+------------------
+- [NLTK Documentation](https://www.nltk.org/)
+- [NLTK on PyPI](https://pypi.org/project/nltk/)
+- [Tkinter GUI Docs](https://docs.python.org/3/library/tkinter.html)
+- [Pyttsx3 on PyPI](https://pypi.org/project/pyttsx3/)
+
+<p align="center">© <a href="https://events.mlh.io/events/11279">2024 Data Hack Fest</a> | <a href="https://www.github.com/Avishek8136">Avishek Rauniyar</a> | All rights reserved. 📅</p>
