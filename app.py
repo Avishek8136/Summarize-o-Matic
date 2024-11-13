@@ -3,12 +3,24 @@ import nltk
 import re
 import heapq
 from nltk.corpus import stopwords
+from nltk import data
 
-# Ensure NLTK corpora are downloaded
-nltk.download('punkt')
-nltk.download('stopwords')
+# Custom NLTK data directory (useful for cloud deployments)
+nltk_data_dir = './nltk_data'
+data.path.append(nltk_data_dir)
 
-def summarize_text(article_text):
+# Download NLTK data files if they aren't already present
+try:
+    nltk.data.find('tokenizers/punkt')
+except LookupError:
+    nltk.download('punkt', download_dir=nltk_data_dir)
+
+try:
+    nltk.data.find('corpora/stopwords')
+except LookupError:
+    nltk.download('stopwords', download_dir=nltk_data_dir)
+
+def summarize_text(article_text, num_sentences):
     # Clean and format the input text
     article_text = re.sub(r'\[[0-9]*\]', ' ', article_text)
     article_text = re.sub(r'\s+', ' ', article_text)
@@ -41,8 +53,8 @@ def summarize_text(article_text):
             if word in word_frequencies.keys():
                 sentence_scores[sent] = sentence_scores.get(sent, 0) + word_frequencies[word]
 
-    # Get the top 7 sentences for the summary
-    summary_sentences = heapq.nlargest(7, sentence_scores, key=sentence_scores.get)
+    # Get the top N sentences for the summary
+    summary_sentences = heapq.nlargest(num_sentences, sentence_scores, key=sentence_scores.get)
     summary = ' '.join(summary_sentences)
     return summary
 
@@ -53,9 +65,13 @@ st.write("Enter the text below to get a summary:")
 # Text area for input
 article_text = st.text_area("Enter Text", height=300)
 
+# Number of sentences input
+num_sentences = st.number_input("Number of sentences for the summary:", min_value=1, max_value=20, value=7, step=1)
+
+# Summarize button
 if st.button("Summarize"):
     if article_text:
-        summary = summarize_text(article_text)
+        summary = summarize_text(article_text, num_sentences)
         st.subheader("Summary")
         st.write(summary)
     else:
