@@ -1,12 +1,8 @@
-# app.py
-from flask import Flask, render_template, request, jsonify
+import streamlit as st
 import nltk
 import re
 import heapq
 from nltk.corpus import stopwords
-
-# Initialize Flask app
-app = Flask(__name__)
 
 # Ensure NLTK corpora are downloaded
 nltk.download('punkt')
@@ -50,16 +46,17 @@ def summarize_text(article_text):
     summary = ' '.join(summary_sentences)
     return summary
 
-@app.route('/')
-def home():
-    return render_template('index.html')
+# Streamlit UI
+st.title("Text Summarizer")
+st.write("Enter the text below to get a summary:")
 
-@app.route('/summarize', methods=['POST'])
-def summarize():
-    # Get the text from the client
-    article_text = request.form['text']
-    summary = summarize_text(article_text)
-    return jsonify({'summary': summary})
+# Text area for input
+article_text = st.text_area("Enter Text", height=300)
 
-if __name__ == '__main__':
-    app.run(debug=True)
+if st.button("Summarize"):
+    if article_text:
+        summary = summarize_text(article_text)
+        st.subheader("Summary")
+        st.write(summary)
+    else:
+        st.error("Please enter some text to summarize.")
