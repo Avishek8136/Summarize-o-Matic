@@ -11,11 +11,11 @@ nltk_data_dir = './nltk_data'
 os.makedirs(nltk_data_dir, exist_ok=True)
 data.path.append(nltk_data_dir)
 
-# Download NLTK data files if they aren't already present
-try:
-    nltk.data.find('tokenizers/punkt')
-except LookupError:
-    nltk.download('punkt', download_dir=nltk_data_dir)
+# # Download NLTK data files if they aren't already present
+# try:
+#     nltk.data.find('tokenizers/punkt')
+# except LookupError:
+#     nltk.download('punkt', download_dir=nltk_data_dir)
 
 try:
     nltk.data.find('corpora/stopwords')
