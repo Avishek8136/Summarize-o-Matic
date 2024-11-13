@@ -1,7 +1,7 @@
 import streamlit as st
 import nltk
 nltk.download('stopwords')
-
+nltk.download('punkt_tab')
 import re
 import heapq
 import os
