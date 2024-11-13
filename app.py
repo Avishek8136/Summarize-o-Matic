@@ -2,11 +2,13 @@ import streamlit as st
 import nltk
 import re
 import heapq
+import os
 from nltk.corpus import stopwords
 from nltk import data
 
 # Custom NLTK data directory (useful for cloud deployments)
 nltk_data_dir = './nltk_data'
+os.makedirs(nltk_data_dir, exist_ok=True)
 data.path.append(nltk_data_dir)
 
 # Download NLTK data files if they aren't already present
